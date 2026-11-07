@@ -1,0 +1,133 @@
+>>> SETUP
+{
+  "model": "claude-sonnet-5-5",
+  "max_tokens": 16000,
+  "system": "You are a coding agent. Use the shell tool to inspect and change files in the current directory.",
+  "tools": [
+    {
+      "name": "shell",
+      "description": "Run a shell command in the current directory. Returns stdout and stderr.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "command"
+        ]
+      }
+    }
+  ]
+}
+
+> show kernel version
+>>> REQUEST (new messages)
+[
+  {
+    "role": "user",
+    "content": "show kernel version"
+  }
+]
+<<< RESPONSE
+{
+  "id": "msg_011CgoTX9Yat87GXniuxf5HS",
+  "container": null,
+  "content": [
+    {
+      "id": "toolu_01UFcp8fAEipckvC8U41cY5B",
+      "caller": {
+        "type": "direct"
+      },
+      "input": {
+        "command": "uname -a"
+      },
+      "name": "shell",
+      "type": "tool_use",
+      "toolset_name": null
+    }
+  ],
+  "model": "claude-sonnet-5-5",
+  "role": "assistant",
+  "stop_details": null,
+  "stop_reason": "tool_use",
+  "stop_sequence": null,
+  "type": "message",
+  "usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "inference_geo": "global",
+    "input_tokens": 411,
+    "output_tokens": 49,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": null,
+    "service_tier": "standard",
+    "speed": "standard"
+  },
+  "diagnostics": null
+}
+
+$ uname -a
+Darwin Sureshs-MacBook-Pro.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:12 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T6050 arm64
+[exit code 0]
+>>> REQUEST (new messages)
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "toolu_01UFcp8fAEipckvC8U41cY5B",
+        "content": "Darwin Sureshs-MacBook-Pro.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:12 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T6050 arm64\n[exit code 0]"
+      }
+    ]
+  }
+]
+<<< RESPONSE
+{
+  "id": "msg_011CgoU5RRxSQbMub7yazYuC",
+  "container": null,
+  "content": [
+    {
+      "citations": null,
+      "text": "This machine is running the Darwin (macOS) kernel, version **25.5.0**.\n\n- **Build:** XNU `xnu-12377.121.6~2`, release build, dated Mon Apr 27 20:41:12 PDT 2026\n- **Architecture:** arm64 (Apple Silicon, T6050)\n- **Hostname:** Sureshs-MacBook-Pro.local",
+      "type": "text"
+    }
+  ],
+  "model": "claude-sonnet-5-5",
+  "role": "assistant",
+  "stop_details": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "type": "message",
+  "usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "inference_geo": "global",
+    "input_tokens": 572,
+    "output_tokens": 132,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": null,
+    "service_tier": "standard",
+    "speed": "standard"
+  },
+  "diagnostics": null
+}
+This machine is running the Darwin (macOS) kernel, version **25.5.0**.
+
+- **Build:** XNU `xnu-12377.121.6~2`, release build, dated Mon Apr 27 20:41:12 PDT 2026
+- **Architecture:** arm64 (Apple Silicon, T6050)
+- **Hostname:** Sureshs-MacBook-Pro.local
